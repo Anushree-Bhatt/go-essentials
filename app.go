@@ -12,11 +12,20 @@ func main() {
 
 func futureValue() {
 	const inflationRate = 6.0
-	principle := 1000
-	rate_of_interest := 5.5
-	var years float64 = 10 // explicit type assignment
+	var principle float64
+	var rate_of_interest float64
+	var years float64
 
-	futureValue := float64(principle) * math.Pow(1+rate_of_interest/100, years)
+	fmt.Print("Enter the amount you want to invest:")
+	fmt.Scan(&principle)
+
+	fmt.Print("At what rate of interest or expected returns:")
+	fmt.Scan(&rate_of_interest)
+
+	fmt.Print("For how many years:")
+	fmt.Scan(&years)
+
+	futureValue := principle * math.Pow(1+rate_of_interest/100, years)
 	realFutureValue := futureValue / math.Pow(1+inflationRate/100, years)
 
 	fmt.Println("Expected returns:", futureValue)
