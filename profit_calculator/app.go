@@ -4,28 +4,35 @@ import (
 	"fmt"
 )
 
+const taxRate = 30
+
 func calculateProfit() {
-	var revenue float64
-	var expenses float64
-	const taxRate = 30
+	revenue := userInput("revenue")
+	expenses := userInput("expenses")
 
-	fmt.Print("Enter the company's revenue:")
-	fmt.Scan(&revenue)
+	ebt, eat, ebt_profit := calculations(revenue, expenses)
 
-	fmt.Print("Enter the company's expenses:")
-	fmt.Scan(&expenses)
+	fmt.Printf("Earnings before Tax: %.3f\n", ebt)
+	fmt.Printf("Tax rate: 30 percent. Earnings after paying Tax: %.3f\n", eat)
+	fmt.Printf("Ratio (EBT/profit): %.3f\n", ebt_profit)
+}
 
+func calculations(revenue, expenses float64) (float64, float64, float64) {
 	ebt := revenue - expenses          //Earnings before tax
-	eat := ebt - (ebt * taxRate / 100) //profit
-	ebt_to_profit := ebt / eat         //Ratio of Earnings before tax to Profit
+	eat := ebt - (ebt * taxRate / 100) //profit - earnings after tax
+	ebt_to_profit := ebt / eat
 
-	fmt.Println("Earnings before Tax:", ebt)
-	fmt.Println("Tax rate: 30%. Earnings after paying Tax:", eat)
-	fmt.Println("Ratio (EBT/profit):", ebt_to_profit)
+	return ebt, eat, ebt_to_profit
+}
 
+func userInput(info string) float64 {
+	var input float64
+	fmt.Printf("Enter the Company's %v:", info)
+	fmt.Scan(&input)
+	return input
 }
 
 func main() {
-	fmt.Println("Welcome to Profit Calculatore!")
+	fmt.Println("Welcome to Profit Calculator!")
 	calculateProfit()
 }

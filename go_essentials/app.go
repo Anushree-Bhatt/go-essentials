@@ -5,6 +5,8 @@ import (
 	"math"
 )
 
+const inflationRate = 6.0
+
 func main() {
 	fmt.Println("Hello World! Welcome to GoLang")
 	// futureValue()
@@ -13,7 +15,7 @@ func main() {
 
 func futureValue() {
 	//variables and types
-	const inflationRate = 6.0
+
 	var principle float64
 	var rate_of_interest float64
 	var years float64
