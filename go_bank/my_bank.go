@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"example.com/bank/file_utility"
+	"github.com/Pallinder/go-randomdata"
 )
 
 const balance_sheet = "balance.txt"
@@ -102,5 +103,5 @@ func main() {
 	bal := bank_using_switch(balance_data)
 	file_utility.WriteFloatToFile(balance_sheet, bal)
 
-	fmt.Println("Thank you for visiting!")
+	fmt.Printf("Thank you for visiting! You can contact us anytime at: %v\n", randomdata.PhoneNumber())
 }
