@@ -1,10 +1,43 @@
 package main
 
 import (
+	"errors"
 	"fmt"
+	"os"
+	"strconv"
 )
 
-func bank_using_switch(balance float64) {
+const balance_sheet = "balance.txt"
+
+func readBalFromFile() (float64, error) {
+	data, err := os.ReadFile(balance_sheet)
+
+	if err != nil {
+		custom_err := errors.New("file not found, hence defaulting balance to 0")
+		return 0, custom_err
+	}
+
+	bal_txt := string(data)
+	bal, err := strconv.ParseFloat(bal_txt, 64)
+
+	if err != nil {
+		custom_err := errors.New("file doesn't contain proper data, hence defaulting balance to 0")
+		return 0, custom_err
+	}
+
+	return bal, err
+}
+
+func writeBalToFile(bal float64) {
+	bal_txt := fmt.Sprint(bal)
+	err := os.WriteFile(balance_sheet, []byte(bal_txt), 0644)
+
+	if err != nil {
+		fmt.Print("Writing file error:", err)
+	}
+}
+
+func bank_using_switch(balance float64) float64 {
 	for {
 		ch := display_start()
 
@@ -40,8 +73,7 @@ func bank_using_switch(balance float64) {
 			balance = balance - to_withdraw
 			fmt.Println("You've withdrawn the amount. New balance:", balance)
 		default:
-			return
-
+			return balance
 		}
 
 	}
@@ -105,6 +137,13 @@ func display_start() int {
 func main() {
 	fmt.Println("Welcome to Go Bank!")
 	// bank_using_if(1000)
-	bank_using_switch(1000)
+
+	balance_data, err := readBalFromFile()
+	if err != nil {
+		fmt.Println(err)
+	}
+	bal := bank_using_switch(balance_data)
+	writeBalToFile(bal)
+
 	fmt.Println("Thank you for visiting!")
 }
