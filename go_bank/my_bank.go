@@ -119,21 +119,6 @@ func bank_using_if(balance float64) {
 	}
 }
 
-func display_start() int {
-	var ch int
-
-	fmt.Println("What do you want to do?")
-	fmt.Println("1. Check balance")
-	fmt.Println("2. Deposit money")
-	fmt.Println("3. Withdraw money")
-	fmt.Println("4. Exit")
-
-	fmt.Print("Your choice:")
-	fmt.Scan(&ch)
-
-	return ch
-}
-
 func main() {
 	fmt.Println("Welcome to Go Bank!")
 	// bank_using_if(1000)
@@ -141,8 +126,8 @@ func main() {
 	balance_data, err := readBalFromFile()
 	if err != nil {
 		fmt.Println(err)
-		panic("Stop running....")
 	}
+
 	bal := bank_using_switch(balance_data)
 	writeBalToFile(bal)
 
