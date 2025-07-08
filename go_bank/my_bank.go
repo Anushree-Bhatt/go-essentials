@@ -141,6 +141,7 @@ func main() {
 	balance_data, err := readBalFromFile()
 	if err != nil {
 		fmt.Println(err)
+		panic("Stop running....")
 	}
 	bal := bank_using_switch(balance_data)
 	writeBalToFile(bal)
